@@ -8,10 +8,10 @@ const muestraPuntuacion = () => {
 muestraPuntuacion();
 
 const pedirCarta = () => {
-  let carta = Math.floor(Math.random() * 12) + 1;
+  let carta = Math.floor(Math.random() * 10) + 1;
 
-  if (carta === 8 || carta === 9) {
-    carta = Math.floor(Math.random() * 12) + 1;
+  if (carta > 7) {
+    carta = carta + 2;
   }
 
   return muestraCarta(carta), console.log(carta);
