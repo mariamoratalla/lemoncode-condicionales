@@ -21,6 +21,12 @@ const mensajePlantarse = document.getElementById(
 ) as HTMLElement;
 const gameOver = document.getElementById("game-over") as HTMLElement;
 const imagen = document.querySelector("img") as HTMLImageElement;
+const nuevaPartida = document.getElementById(
+  "nueva-partida"
+) as HTMLButtonElement;
+const botonResultado = document.getElementById(
+  "saber-resultado"
+) as HTMLButtonElement;
 
 const muestraPuntuacion = () => {
   puntos.innerHTML = puntuacion.toString();
@@ -51,8 +57,6 @@ const pedirCarta = () => {
     gameOver.innerHTML = "GAME OVER!!!!!!!";
   }
 };
-
-botonCarta?.addEventListener("click", pedirCarta);
 
 const muestraCarta = (carta: number): void => {
   switch (carta) {
@@ -111,6 +115,8 @@ const muestraCarta = (carta: number): void => {
 
 const plantarse = () => {
   botonCarta.disabled = true;
+  botonPlantarse.disabled = true;
+  botonResultado.disabled = false;
 
   switch (true) {
     case puntuacion <= 4:
@@ -130,4 +136,41 @@ const plantarse = () => {
   }
 };
 
+const reset = () => {
+  puntuacion = 0;
+  muestraPuntuacion();
+  botonCarta.disabled = false;
+  botonPlantarse.disabled = false;
+  gameOver.innerHTML = "";
+
+  imagen.src =
+    "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg";
+  imagen.alt = "carta boca abajo";
+};
+
+const saberResultado = () => {
+  let resultado = "La siguiente carta hubiese sido esta: ";
+  let carta = Math.floor(Math.random() * 10) + 1;
+  if (puntuacion <= 7) {
+    if (carta > 7) {
+      carta = 0.5;
+    }
+
+    resultado += `${carta} de copas. `;
+    puntuacion += carta;
+  }
+
+  if (puntuacion > 7.5) {
+    resultado = `La siguiente carta hubiese sido esta: ${carta} de copas. 
+    Ya habrías alcanzado una puntuación mayor o igual a 7.5.`;
+  } else {
+    resultado += `La puntuación final sería: ${puntuacion.toFixed(1)}`;
+  }
+
+  alert(resultado);
+};
+
+botonCarta.addEventListener("click", pedirCarta);
 botonPlantarse.addEventListener("click", plantarse);
+nuevaPartida.addEventListener("click", reset);
+botonResultado.addEventListener("click", saberResultado);
