@@ -21,7 +21,7 @@ const mensajePlantarse = document.getElementById(
 ) as HTMLElement;
 const gameOver = document.getElementById("game-over") as HTMLElement;
 const imagen = document.querySelector("img") as HTMLImageElement;
-const nuevaPartida = document.getElementById(
+const botonNuevaPartida = document.getElementById(
   "nueva-partida"
 ) as HTMLButtonElement;
 const botonResultado = document.getElementById(
@@ -54,8 +54,18 @@ const pedirCarta = () => {
   if (puntuacion > 7.5) {
     botonCarta.disabled = true;
     botonPlantarse.disabled = true;
+    botonNuevaPartida.disabled = false;
+    botonResultado.disabled = false;
     gameOver.innerHTML = "GAME OVER!!!!!!!";
   }
+
+  if (puntuacion === 7.5) {
+    botonCarta.disabled = true;
+    botonPlantarse.disabled = true;
+    botonNuevaPartida.disabled = false;
+    gameOver.innerHTML = "HAS GANADO 🥳🥳🥳🥳🥳";
+  }
+  botonResultado.disabled = true;
 };
 
 const muestraCarta = (carta: number): void => {
@@ -117,6 +127,7 @@ const plantarse = () => {
   botonCarta.disabled = true;
   botonPlantarse.disabled = true;
   botonResultado.disabled = false;
+  botonNuevaPartida.disabled = false;
 
   switch (true) {
     case puntuacion <= 4:
@@ -141,7 +152,9 @@ const reset = () => {
   muestraPuntuacion();
   botonCarta.disabled = false;
   botonPlantarse.disabled = false;
+  botonResultado.disabled = true;
   gameOver.innerHTML = "";
+  mensajePlantarse.innerHTML = "";
 
   imagen.src =
     "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg";
@@ -172,5 +185,5 @@ const saberResultado = () => {
 
 botonCarta.addEventListener("click", pedirCarta);
 botonPlantarse.addEventListener("click", plantarse);
-nuevaPartida.addEventListener("click", reset);
+botonNuevaPartida.addEventListener("click", reset);
 botonResultado.addEventListener("click", saberResultado);
