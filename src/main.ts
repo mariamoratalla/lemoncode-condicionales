@@ -162,25 +162,33 @@ const reset = () => {
 };
 
 const saberResultado = () => {
-  let resultado = "La siguiente carta hubiese sido esta: ";
-  let carta = Math.floor(Math.random() * 10) + 1;
-  if (puntuacion <= 7) {
-    if (carta > 7) {
-      carta = 0.5;
+  let mensaje = "La siguiente carta hubiese sido esta: ";
+  let valorSiguienteCarta = Math.floor(Math.random() * 10) + 1;
+  let nombreSiguienteCarta = valorSiguienteCarta;
+
+  if (puntuacion < 7) {
+    if (valorSiguienteCarta > 7) {
+      nombreSiguienteCarta = valorSiguienteCarta + 2;
+      valorSiguienteCarta = 0.5;
     }
 
-    resultado += `${carta} de copas. `;
-    puntuacion += carta;
+    mensaje += `${nombreSiguienteCarta} de copas. `;
+    puntuacion += valorSiguienteCarta;
+  }
+
+  if (puntuacion === 7.5) {
+    botonResultado.disabled = true;
+    mensaje += `Habrías ganado el juego. `;
   }
 
   if (puntuacion > 7.5) {
-    resultado = `La siguiente carta hubiese sido esta: ${carta} de copas. 
-    Ya habrías alcanzado una puntuación mayor o igual a 7.5.`;
+    botonResultado.disabled = true;
+    mensaje += `Ya habrías alcanzado una puntuación mayor que 7.5.`;
   } else {
-    resultado += `La puntuación final sería: ${puntuacion.toFixed(1)}`;
+    mensaje += `La puntuación final sería: ${puntuacion.toFixed(1)}`;
   }
 
-  alert(resultado);
+  alert(mensaje);
 };
 
 botonCarta.addEventListener("click", pedirCarta);
