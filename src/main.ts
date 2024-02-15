@@ -166,7 +166,7 @@ const saberResultado = () => {
   let valorSiguienteCarta = Math.floor(Math.random() * 10) + 1;
   let nombreSiguienteCarta = valorSiguienteCarta;
 
-  if (puntuacion < 7) {
+  if (puntuacion <= 7) {
     if (valorSiguienteCarta > 7) {
       nombreSiguienteCarta = valorSiguienteCarta + 2;
       valorSiguienteCarta = 0.5;
